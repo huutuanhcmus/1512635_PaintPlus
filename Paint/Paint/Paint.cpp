@@ -9,6 +9,12 @@
 #include <objidl.h>
 #include <gdiplus.h>
 #pragma comment (lib,"Gdiplus.lib")
+
+#include <Objbase.h>
+#pragma comment(lib, "Ole32.lib")
+#include "RibbonFramework.h"
+#include "RibbonIDs.h"
+
 using namespace Gdiplus;
 //using namespace std;
 #define MAX_LOADSTRING 100
@@ -39,6 +45,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_PAINT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
+	CoInitialize(NULL);
     // Perform application initialization:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -58,7 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
     }
-
+	CoUninitialize();
     return (int) msg.wParam;
 }
 
@@ -75,7 +82,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
+	wcex.style = 0;// CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
@@ -141,6 +148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
 	case WM_CREATE:
+		InitializeFramework(hWnd);
 		GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 		break;
 	case WM_LBUTTONDOWN:
@@ -239,6 +247,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
+		DestroyFramework();
 		GdiplusShutdown(gdiplusToken);
         PostQuitMessage(0);
         break;
