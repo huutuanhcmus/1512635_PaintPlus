@@ -10,6 +10,7 @@
 #include "CommandHandler.h"
 #include "RibbonIDs.h"
 #include "RibbonFramework.h"
+//#include "Paint.h"
  
 // Static method to create an instance of the object.
 HRESULT CCommandHandler::CreateInstance(IUICommandHandler **ppCommandHandler)
@@ -113,14 +114,11 @@ STDMETHODIMP CCommandHandler::Execute(
 	const PROPVARIANT* ppropvarValue,
 	IUISimplePropertySet* pCommandExecutionProperties)
 {
-	UNREFERENCED_PARAMETER(pCommandExecutionProperties);
-	UNREFERENCED_PARAMETER(ppropvarValue);
-	UNREFERENCED_PARAMETER(key);
-	UNREFERENCED_PARAMETER(verb);
-	UNREFERENCED_PARAMETER(nCmdID);
+	HWND hwnd = GetForegroundWindow();
 	switch (nCmdID)
 	{
 	case ID_CMD_LINE:
+		SendMessage(hwnd, WM_COMMAND, (WPARAM)104, 0);
 		MessageBox(0, 0, 0, 0);
 		break;
 	}
