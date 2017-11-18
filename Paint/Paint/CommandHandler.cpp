@@ -118,8 +118,16 @@ STDMETHODIMP CCommandHandler::Execute(
 	switch (nCmdID)
 	{
 	case ID_CMD_LINE:
-		SendMessage(hwnd, WM_COMMAND, (WPARAM)104, 0);
-		MessageBox(0, 0, 0, 0);
+		SendMessage(hwnd, WM_COMMAND, (WPARAM)32771, 0);
+		break;
+	case ID_CMD_RECTANGLE:
+		SendMessage(hwnd, WM_COMMAND, (WPARAM)32772, 0);
+		break;
+	case ID_CMD_ELLIPSE:
+		SendMessage(hwnd, WM_COMMAND, (WPARAM)32773, 0);
+		break;
+	case ID_CMD_EXIT:
+		SendMessage(hwnd, WM_DESTROY, 0, 0);
 		break;
 	}
 	return S_OK;
