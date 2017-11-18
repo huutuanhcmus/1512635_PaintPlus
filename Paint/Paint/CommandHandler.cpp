@@ -118,6 +118,11 @@ STDMETHODIMP CCommandHandler::Execute(
 	UNREFERENCED_PARAMETER(key);
 	UNREFERENCED_PARAMETER(verb);
 	UNREFERENCED_PARAMETER(nCmdID);
-
+	switch (nCmdID)
+	{
+	case ID_CMD_LINE:
+		MessageBox(0, 0, 0, 0);
+		break;
+	}
 	return S_OK;
 }
