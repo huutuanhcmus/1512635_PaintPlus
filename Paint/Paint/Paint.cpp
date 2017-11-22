@@ -188,7 +188,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				Shape->SetData(start, End, keepShift);
 				InvalidateRect(hWnd, NULL, TRUE);
 				break;
-				
 			}
 		}
 	case WM_KEYDOWN:
